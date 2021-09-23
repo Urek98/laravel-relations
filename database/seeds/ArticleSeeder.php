@@ -15,34 +15,27 @@ class ArticleSeeder extends Seeder
     public function run(Faker $faker)
     {
 
+        $listAuthorID = [];
 
-        
-        $listOfAuthorID = [];  
-
-
-        for ($i = 0; $i < 10; $i++){
-
-            $authorObject = new Author();
-            $authorObject->name = $faker->word(1);  
-            $authorObject->surname = $faker->word(1);     
-            $authorObject->save();
-            $listOfAuthorID[] = $authorObject->id;
-
-
+        for($x = 0; $x < 20; $x++) {
+            $author = new Author();
+            $author->name = $faker->word(1);
+            $author->surname = $faker->word(1);
+            $author->save();
+            $listAuthorID[] = $author->id;
         }
 
-        for ($i = 0; $i < 20; $i++){
+        for($x = 0; $x < 20; $x++) {
 
-            $articleObject = new Article();
-            $articleObject->title = $faker->word(3);  
-            $articleObject->article_img = $faker->imageUrl(480, 360, 'article', true);
-            $articleObject->article_text = $faker->paragraph(2);
-            $articleObject->save();
-
-            $randAuthorKey = array_rand($listOfAuthorID, 1);
-            $authorID = $listOfAuthorID[$randAuthorKey];
-            $articleObject->author_id = $authorID;
-            $articleObject->save();
+            $randAuthorID = array_rand($listAuthorID, 1);
+            $authorID = $listAuthorID[$randAuthorID];
+            
+            $article = new Article();
+            $article->title = $faker->word(5, true);
+            $article->article_img = $faker->imageUrl(250, 250, 'article', true);
+            $article->article_text = $faker->word(2);
+            $article->author_id = $authorID;
+            $article->save();
         }
     }
 }
