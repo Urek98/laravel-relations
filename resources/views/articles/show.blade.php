@@ -6,8 +6,12 @@
     <div class="row">
         <div class="col">
             <h1>#{{$article->id}}</h1>
-            <div>Titolo: {{$article->title}}</div>
+            <h2>Titolo: {{$article->title}}</h2>
             <p>{{$article->article_text}}</p>
+
+            @foreach($article->tag as $tag)
+            <span class="badge badge-secondary">{{$tag->name}}</span>
+            @endforeach
             <div>
                 <a href="{{ route('articles.index') }}">Torna Indietro</a>
             </div>
